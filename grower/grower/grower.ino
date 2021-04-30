@@ -18,7 +18,7 @@ int red = 9;
 int green = 10;
 int blue = 11;
 int fan = 12;
-//Swap with heat; 7 for testing purpouses only
+//Swap with heat; 7 for testing pourposes only
 int water = 6;
 int spray = 8;
 
@@ -45,7 +45,7 @@ void loop() {
   setTemp(plantdata[1]);
   setHum(plantdata[0]);
   cycle();
-  delay(2000);
+  delay(300000);
 }
 
 void setLight( int r, int g , int b){
@@ -63,7 +63,7 @@ void setHum ( int rh) {
     //delay(5000);
   //}
   //else if ( ch > rh ) {
-    digitalWrite(spray , LOW);
+  digitalWrite(spray , LOW);
   //}
 }
 
@@ -75,18 +75,15 @@ void setTemp (float rt){
  if ( rt < ct ) {
     digitalWrite(fan, HIGH);
     digitalWrite(heat, LOW);
-    delay(1000);
-
   }
   else {
     digitalWrite(fan, LOW);
     digitalWrite(heat, HIGH);
-   
-    
   }
 }
 
 void cycle () {
     digitalWrite(water, HIGH);
-
+    delay(10000);
+    digitalWrite(water, LOW);
 }
