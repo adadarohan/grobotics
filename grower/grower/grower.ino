@@ -1,5 +1,5 @@
-//Arduino code
-#include <SoftwareSerial.h>
+//Grobotics Arduino code
+//#include <SoftwareSerial.h>
 #include "DHT.h"        
 #define DHTTYPE DHT11   
 
@@ -11,7 +11,7 @@ DHT dht(dht_dpin, DHTTYPE);
 //SoftwareSerial s(5,6);
 
 //Variabes
-float plantdata[] = {50, 10.0 , 0 , 200 , 150}; 
+float plantdata[] = {50, 10.0 , 150 , 0 , 255};  //Humidity, Temperature, R, G, B
 //Pins
 int heat = 7;
 int red = 9;
@@ -41,7 +41,7 @@ void setup() {
 }
  
 void loop() {
-  setLight(plantdata[2],plantdata[3], plantdata[4]);
+  setLight(plantdata[2],plantdata[3],plantdata[4]);
   setTemp(plantdata[1]);
   setHum(plantdata[0]);
   cycle();
