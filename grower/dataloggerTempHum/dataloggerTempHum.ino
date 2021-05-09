@@ -5,6 +5,10 @@ Copyright Rohan Kapur 2020
 
 #include <ESP8266WiFi.h>;
 #include <ThingSpeak.h>;
+#include <DHT.h>  
+#define DHTPIN 0         
+ 
+DHT dht(DHTPIN, DHT11);
 
 const char* ssid = "y2how2"; //Your Network SSID
 const char* pass = "nonadubak"; //Your Network Password
@@ -32,6 +36,7 @@ void setup(){
   Serial.println("");
   Serial.println("WiFi connected");
   ThingSpeak.begin(client);
+  dht.begin();
 
 }
 
@@ -39,8 +44,11 @@ void setup(){
 
 void loop(){
 
-  int temp = random(0, 100);
-  int hum = random(0, 100);
+  float temp = dht.readTemperature();
+  float hum = dht.readHumidity();
+
+  Serial.println(temp);
+  Serial.println(hum);
 
   ThingSpeak.setField(1, temp);
   ThingSpeak.setField(2, hum);
@@ -53,7 +61,7 @@ void loop(){
     Serial.println("Problem updating channel. HTTP error code " + String(x));
   }
   
-  delay(30000);
+  delay(15000);
   
 
 }
