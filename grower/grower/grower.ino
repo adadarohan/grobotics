@@ -23,8 +23,8 @@ unsigned long myChannelNumber = 1148581; //Your Channel Number (Without Brackets
 const char * myWriteAPIKey = "XJSKW6QO5AR3KCLX"; //Your Write API Key
 
 //Variabes
-int plantdata[] = {50, 29.5 , 255 , 0 , 255, 90};  //  Temperature,Top Humidity, R, G, B, Bottom Humidity
-int state[] = {0,0,0,0,0,0} ; //Temperature, Top Humidity, R, G, B, Bottom State
+float plantdata[] = {22, 29.5 , 255 , 0 , 255, 90};  //  Temperature,Top Humidity, R, G, B, Bottom Humidity
+float state[] = {0,0,0,0,0,0} ; //Temperature, Top Humidity, R, G, B, Bottom State
 
 //Pins
 
