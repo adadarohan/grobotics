@@ -38,6 +38,8 @@ int heat = D5;
 
 void setup() {
   Serial.begin(115200);
+  delay(10);
+  
   dht.begin();
   dht2.begin();
   
@@ -48,7 +50,7 @@ void setup() {
   pinMode(heat, OUTPUT);
   pinMode(water, OUTPUT);
   //pinMode(spray, OUTPUT);
-
+  
   // Connect to WiFi network
   
   Serial.println("Connecting to ");
@@ -78,6 +80,7 @@ void loop() {
       ThingSpeak.setField(y, state[y-1]);
   }
 
+  /*
   int r = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
   if(r == 200){
     Serial.println("Channel update successful.");
@@ -85,6 +88,8 @@ void loop() {
   else{
     Serial.println("Problem updating channel. HTTP error code " + String(r));
   }
+
+  */
   delay(30000);
 }
 
@@ -118,7 +123,8 @@ void setTemp (float rt){
 
   state[0] = ct;
   state[1] = ch;
-  
+
+  Serial.println(ct);
   //Heat and fan are triggered by low
   
   if ( rt < ct ) {
@@ -135,6 +141,7 @@ void setTemp (float rt){
 
 void cycle (float rh) {
     float ch = dht2.readHumidity();
+    Serial.println(ch);
     if ((int)ch < (int)rh){
       digitalWrite(water, LOW);
       state[5] = 1;
