@@ -10,7 +10,7 @@ Copyright Rohan Kapur 2020
  
 DHT dht(DHTPIN, DHT11);
 
-const char* ssid = "y2how2"; //Your Network SSID
+const char* ssid = "node"; //Your Network SSID
 const char* pass = "nonadubak"; //Your Network Password
 
 WiFiClient client;
@@ -35,6 +35,8 @@ void setup(){
   }
   Serial.println("");
   Serial.println("WiFi connected");
+  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.macAddress());
   ThingSpeak.begin(client);
   dht.begin();
 
@@ -50,18 +52,22 @@ void loop(){
   Serial.println(temp);
   Serial.println(hum);
 
-  ThingSpeak.setField(1, temp);
-  ThingSpeak.setField(2, hum);
-  
-  int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-  if(x == 200){
-    Serial.println("Channel update successful.");
+  if (isnan(temp) == false) {
+    ThingSpeak.setField(1, temp);
+    ThingSpeak.setField(2, hum);
+    
+    int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+    if(x == 200){
+      Serial.println("Channel update successful.");
+    }
+    else{
+      Serial.println("Problem updating channel. HTTP error code " + String(x));
+      Serial.println(WiFi.status());
+    }
+    
+    delay(5 * 60 * 1000);
+  } else {
+    delay(2000);
   }
-  else{
-    Serial.println("Problem updating channel. HTTP error code " + String(x));
-  }
-  
-  delay(20 * 1000);
-  
 
 }
